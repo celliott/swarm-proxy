@@ -18,7 +18,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      #labels: [ endpoint=${PROXY_SERVICE_NAME} ]
       resources:
         limits:
           cpus: '0.25'
