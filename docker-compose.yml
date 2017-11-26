@@ -1,0 +1,44 @@
+version: "3"
+services:
+  swarm-proxy:
+    build: ./docker/${CONTAINER}
+    image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
+    container_name: ${CONTAINER}
+    restart: always
+    environment:
+      - PROXY_SERVICE_NAME=${PROXY_SERVICE_NAME}
+      - SWARM_PROXY_PORT=${PROXY_PORT}
+    networks:
+      - default
+    ports:
+      - "${SWARM_PROXY_PORT}:${SWARM_PROXY_PORT}"
+    volumes:
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: replicated
+      replicas: 1
+      #labels: [ endpoint=${PROXY_SERVICE_NAME} ]
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: continue
+        monitor: 60s
+        max_failure_ratio: 0.3
+
+networks:
+  default:
+    external:
+      name: overlay01
