@@ -25,8 +25,9 @@ def create_service():
         env = data['env'],
         port = data['port'],
     )
-  except: pass
-  return flask.jsonify({"results":results.replace('\n','')})
+    return flask.jsonify({"msg": "Service Added"})
+  except:
+    return flask.jsonify({"msg": "Error, Service Not Added"})
 
 @server.route("/rm_service", methods=['DELETE'])
 def rm_service():
@@ -35,8 +36,9 @@ def rm_service():
     results = options['docker'].services.remove(
         image = data['name'],
     )
-  except: pass
-  return flask.jsonify({"results":results.replace('\n','')})
+    return flask.jsonify({"msg": "Service Removed"})
+  except:
+      return flask.jsonify({"msg": "Error, Service Not Removed"})
 
 if __name__ == "__main__":
   server.run(host='0.0.0.0', port=options['server_port'])
