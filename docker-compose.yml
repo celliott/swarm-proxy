@@ -11,7 +11,7 @@ services:
     networks:
       - default
     ports:
-      - "${SWARM_PROXY_PORT}:${SWARM_PROXY_PORT}"
+      - "${SWARM_PROXY_PORT}"
     volumes:
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
