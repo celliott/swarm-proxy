@@ -5,6 +5,8 @@ services:
     image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
     container_name: ${CONTAINER}
     restart: always
+    labels:
+      - endpoint=${SWARM_PROXY_SERVICE_NAME}
     environment:
       - SWARM_PROXY_SERVICE_NAME=${SWARM_PROXY_SERVICE_NAME}
       - SWARM_PROXY_PORT=${SWARM_PROXY_PORT}
@@ -18,8 +20,6 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      labels:
-        - endpoint=${PROXY_SERVICE_NAME}
       resources:
         limits:
           cpus: '0.25'
