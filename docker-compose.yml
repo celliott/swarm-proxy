@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       - SWARM_PROXY_SERVICE_NAME=${SWARM_PROXY_SERVICE_NAME}
-      - SWARM_PROXY_PORT=${PROXY_PORT}
+      - SWARM_PROXY_PORT=${SWARM_PROXY_PORT}
     networks:
       - default
     ports:
