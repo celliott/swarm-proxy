@@ -13,12 +13,13 @@ services:
     ports:
       - "${SWARM_PROXY_PORT}"
     volumes:
-      # - ./docker/swarm-proxy/src:/opt/app
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       mode: replicated
       replicas: 1
+      labels:
+        - endpoint=${PROXY_SERVICE_NAME}
       resources:
         limits:
           cpus: '0.25'
