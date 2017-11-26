@@ -1,9 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os
 import json
 import options
 import logging
+import flask
 from flask import request, Response
 
 server = flask.Flask(__name__)
@@ -16,9 +17,9 @@ def create_service():
   try:
     results = options['docker'].services.create(
         image = data['name'],
-        name = = data['name'],
+        name = data['name'],
         replicas = data['replicas'],
-        restart-condition = "any",
+        restart_policy = "any",
         networks = data['network'],
         container_labels = data['network'],
         env = data['env'],
