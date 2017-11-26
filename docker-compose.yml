@@ -13,6 +13,7 @@ services:
     ports:
       - "${SWARM_PROXY_PORT}"
     volumes:
+      # - ./docker/swarm-proxy/src:/opt/app
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     deploy:
@@ -21,10 +22,10 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 512M
+          memory: 64M
         reservations:
           cpus: '0.25'
-          memory: 256M
+          memory: 64M
       restart_policy:
         condition: on-failure
         delay: 5s
