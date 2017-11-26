@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import os, docker
+import os
+import docker
 
 def get_options():
     return {

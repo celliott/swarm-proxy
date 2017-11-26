@@ -28,9 +28,10 @@ $ make deploy
 DATA='{
   "version":"latest",
   "name":"service01",
+  "replicas": "1",
   "network":"overlay01",
   "label":"endpoint=service01",
-  "env":"BASEPATH=/service01/",
+  "env":"ENV01=env01,ENV02=env02",
   "port":"4000",
   "image":"celliott/service01:latest"
 }'
@@ -39,12 +40,12 @@ DATA='{
 ```bash
 $ curl -X POST -H "Content-Type: application/json" \
   -d $DATA \
-  http://$SWARM_PROXY/swarm-proxy/create_service
+  https://$SWARM_PROXY/swarm-proxy/create_service
 ```
 
 #### Remove service
 ```bash
 $ curl -X DELETE -H "Content-Type: application/json" \
   -d '{"name":"service01"}' \
-  http://$SWARM_PROXY/swarm-proxy/rm_service
+  https://$SWARM_PROXY/swarm-proxy/rm_service
 ```

@@ -4,7 +4,6 @@ import os
 import json
 import options
 import logging
-import subprocess
 from flask import request, Response
 
 server = flask.Flask(__name__)
@@ -15,8 +14,16 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 def create_service():
   data = json.loads(request.data)
   try:
-    cmd = "docker service create --replicas 1 --restart-condition any --name {name} --network {network} --container-label {label} -e {env} -p {port} {image}".format(**data)
-    results = subprocess.check_output(cmd, shell=True)
+    results = options['docker'].services.create(
+        image = data['name'],
+        name = = data['name'],
+        replicas = data['replicas'],
+        restart-condition = "any",
+        networks = data['network'],
+        container_labels = data['network'],
+        env = data['env'],
+        port = data['port'],
+    )
   except: pass
   return flask.jsonify({"results":results.replace('\n','')})
 
@@ -24,8 +31,9 @@ def create_service():
 def rm_service():
   data = json.loads(request.data)
   try:
-    cmd = "docker service rm {name}".format(**data)
-    results = subprocess.check_output(cmd, shell=True)
+    results = options['docker'].services.remove(
+        image = data['name'],
+    )
   except: pass
   return flask.jsonify({"results":results.replace('\n','')})
 
