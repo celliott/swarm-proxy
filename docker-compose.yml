@@ -6,7 +6,7 @@ services:
     container_name: ${CONTAINER}
     restart: always
     environment:
-      - PROXY_SERVICE_NAME=${PROXY_SERVICE_NAME}
+      - SWARM_PROXY_SERVICE_NAME=${SWARM_PROXY_SERVICE_NAME}
       - SWARM_PROXY_PORT=${PROXY_PORT}
     networks:
       - default
