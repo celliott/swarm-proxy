@@ -14,20 +14,20 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 @server.route("/create_service", methods=['POST'])
 def create_service():
     data = json.loads(request.data)
-    try:
-        results = options['docker'].services.create(
-            image = data['name'],
-            name = data['name'],
-            replicas = data['replicas'],
-            restart_policy = "any",
-            networks = data['network'],
-            container_labels = data['network'],
-            env = data['env'],
-            port = data['port'],
-        )
-        return flask.jsonify({"msg": "Service Added"})
-    except:
-        return flask.jsonify({"msg": "Error, Service Not Added"})
+    # try:
+    results = options['docker'].services.create(
+        image = data['name'],
+        name = data['name'],
+        replicas = data['replicas'],
+        restart_policy = "any",
+        networks = data['network'],
+        container_labels = data['network'],
+        env = data['env'],
+        port = data['port'],
+    )
+    return flask.jsonify({"msg": "Service Added"})
+    # except:
+    #     return flask.jsonify({"msg": "Error, Service Not Added"})
 
 @server.route("/rm_service", methods=['DELETE'])
 def rm_service():
