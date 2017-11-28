@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 def create_service():
     data = json.loads(request.data)
     try:
-        cmd = "docker service create --replicas 1 --restart-condition any --name {name} --network {network} --container-label {label} -e {env} -p {port} {image}".format(**data)
+        cmd = "/usr/bin/docker service create --replicas 1 --restart-condition any --name {name} --network {network} --container-label {label} -e {env} -p {port} {image}".format(**data)
         results = subprocess.check_output(cmd, shell=True)
         return flask.jsonify({"results":results.replace('\n','')}), 201, {'ContentType':'application/json'}
     except:
@@ -26,7 +26,7 @@ def create_service():
 def rm_service():
     data = json.loads(request.data)
     try:
-        cmd = "docker service rm {name}".format(**data)
+        cmd = "/usr/bin/docker service rm {name}".format(**data)
         results = subprocess.check_output(cmd, shell=True)
         return flask.jsonify({"results":results.replace('\n','')}), 202, {'ContentType':'application/json'}
     except:
